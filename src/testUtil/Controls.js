@@ -1,3 +1,6 @@
-export function leftIn (sprite) {
-  sprite.input.left = 5
+function enableInput (sprite) {
+  sprite.inputEnabled = true
+  sprite.input.enableDrag(true)
 }
+
+export {enableInput}
