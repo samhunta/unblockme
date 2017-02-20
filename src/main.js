@@ -21,6 +21,7 @@ class Game extends Phaser.Game {
     this.state.add('Game', GameState, false)
     this.state.start('Boot')
   }
+
 }
 
 window.game = new Game()

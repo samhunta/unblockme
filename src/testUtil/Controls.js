@@ -3,4 +3,4 @@ function enableInput (sprite) {
   sprite.input.enableDrag(true)
 }
 
-export {enableInput}
+export { enableInput }

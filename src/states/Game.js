@@ -16,19 +16,50 @@ export default class extends Phaser.State {
     banner.smoothed = false
     banner.anchor.setTo(0.5)
 
-    this.mushroom = new Mushroom({
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
+
+    this.horizontalMushroom = new Mushroom({
+      game: this,
+      x: this.world.centerX * 0.5,
+      y: this.world.centerY,
+      asset: 'mushroom'
+    })
+    .allowDrag({
+      horizontal: true
+    })
+
+    this.verticalMushroom = new Mushroom({
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
       asset: 'mushroom'
     })
+    .allowDrag({
+      vertical: true
+    })
 
-    this.game.add.existing(this.mushroom)
+    this.anyMushroom = new Mushroom({
+      game: this,
+      x: this.world.centerX * 1.5,
+      y: this.world.centerY,
+      asset: 'mushroom'
+    })
+    .allowDrag(true)
+
+    const mushrooms = [
+      this.verticalMushroom,
+      this.horizontalMushroom,
+      this.anyMushroom
+    ]
+
+    mushrooms.forEach((mushroom) => {
+      this.game.add.existing(mushroom)
+    })
   }
 
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.mushroom, 32, 32)
+      this.game.debug.spriteInfo(this.verticalMushroom, 32, 32)
     }
   }
 }
