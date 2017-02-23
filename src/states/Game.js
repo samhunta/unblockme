@@ -1,6 +1,7 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
 import Mushroom from '../sprites/Mushroom'
+import BlockArea from '../sprites/BlockArea'
 
 export default class extends Phaser.State {
   init () {}
@@ -18,9 +19,23 @@ export default class extends Phaser.State {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
+    /*
+      Ean: this sprite is a place holder for the game area,
+      it's used to keep blocks in an area via the Mushroom
+      setBoundry method. This is the 'game area' sprite thus
+      it should have a 6x6 graphic (referenced from the unblockme
+      android game)
+    */
+    this.blockArea = new BlockArea({
+      game: this,
+      x: this.world.centerX,
+      y: this.world.centerY,
+      asset: 'mushroom' // place holder sprite
+    })
+
     this.horizontalMushroom = new Mushroom({
       game: this,
-      x: this.world.centerX * 0.5,
+      x: this.world.centerX * 0.85,
       y: this.world.centerY,
       asset: 'mushroom'
     })
@@ -40,20 +55,27 @@ export default class extends Phaser.State {
 
     this.anyMushroom = new Mushroom({
       game: this,
-      x: this.world.centerX * 1.5,
+      x: this.world.centerX * 1.15,
       y: this.world.centerY,
       asset: 'mushroom'
     })
     .allowDrag(true)
 
-    const mushrooms = [
+    this.game.add.existing(this.blockArea)
+
+    /*
+     Refering to the below structure as'Blocks'
+     in prep for hauling the mushrooms out
+    */
+    const levelBlocks = [
       this.verticalMushroom,
       this.horizontalMushroom,
       this.anyMushroom
     ]
 
-    mushrooms.forEach((mushroom) => {
-      this.game.add.existing(mushroom)
+    levelBlocks.forEach((sprite) => {
+      sprite.setBoundry(this.blockArea)
+      this.game.add.existing(sprite)
     })
   }
 

@@ -16,6 +16,10 @@ export default class extends Phaser.Sprite {
     }
   }
 
+  setBoundry (sprite) {
+    this.input.boundsSprite = sprite
+  }
+
   setupDragEvents () {
     this.events.onDragStart.add((...args) => {
       this.isDragging = true
