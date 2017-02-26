@@ -22,7 +22,7 @@ export default class extends Phaser.State {
     /*
       Ean: this sprite is a place holder for the game area,
       it's used to keep blocks in an area via the Mushroom
-      setBoundry method. This is the 'game area' sprite thus
+      setBoundary method. This is the 'game area' sprite thus
       it should have a 6x6 graphic (referenced from the unblockme
       android game)
     */
@@ -74,7 +74,7 @@ export default class extends Phaser.State {
     ]
 
     levelBlocks.forEach((sprite) => {
-      sprite.setBoundry(this.blockArea)
+      sprite.setBoundary(this.blockArea)
       this.game.add.existing(sprite)
     })
   }

@@ -16,7 +16,7 @@ export default class extends Phaser.Sprite {
     }
   }
 
-  setBoundry (sprite) {
+  setBoundary (sprite) {
     this.input.boundsSprite = sprite
   }
 
