@@ -1,9 +1,9 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
-import BlockArea from '../sprites/BlockArea'
+import Mushroom from '../sprites/MushroomSprite'
+import BlockArea from '../sprites/BlockAreaSprite'
 
-export default class extends Phaser.State {
+class GameState extends Phaser.State {
   init () {}
   preload () {}
 
@@ -85,3 +85,5 @@ export default class extends Phaser.State {
     }
   }
 }
+
+export default GameState
