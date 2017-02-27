@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/MushroomSprite'
+import BlockSprite from '../sprites/BlockSprite'
 import BlockArea from '../sprites/BlockAreaSprite'
 
 class GameState extends Phaser.State {
@@ -19,69 +19,76 @@ class GameState extends Phaser.State {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
-    /*
-      Ean: this sprite is a place holder for the game area,
-      it's used to keep blocks in an area via the Mushroom
-      setBoundary method. This is the 'game area' sprite thus
-      it should have a 6x6 graphic (referenced from the unblockme
-      android game)
-    */
     this.blockArea = new BlockArea({
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
-      asset: 'mushroom', // place holder sprite
+      asset: 'blockArea', // place holder sprite
     })
 
-    this.horizontalMushroom = new Mushroom({
+    this.horizontalBlock = new BlockSprite({
       game: this,
-      x: this.world.centerX * 0.85,
+      x: this.world.centerX * 0.65,
       y: this.world.centerY,
-      asset: 'mushroom',
+      asset: 'tallBlock',
     })
     .allowDrag({
       horizontal: true,
     })
 
-    this.verticalMushroom = new Mushroom({
+    this.verticalBlock = new BlockSprite({
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
-      asset: 'mushroom',
+      asset: 'tallBlock',
     })
     .allowDrag({
       vertical: true,
     })
 
-    this.anyMushroom = new Mushroom({
+    this.anyBlock = new BlockSprite({
       game: this,
-      x: this.world.centerX * 1.15,
+      x: this.world.centerX * 1.35,
       y: this.world.centerY,
-      asset: 'mushroom',
+      asset: 'midBlock',
     })
     .allowDrag(true)
 
     this.game.add.existing(this.blockArea)
 
     /*
-     Refering to the below structure as'Blocks'
-     in prep for hauling the mushrooms out
-    */
     const levelBlocks = [
-      this.verticalMushroom,
-      this.horizontalMushroom,
-      this.anyMushroom,
+      this.verticalBlock,
+      this.horizontalBlock,
+      this.anyBlock,
     ]
+    */
 
-    levelBlocks.forEach((sprite) => {
-      sprite.setBoundary(this.blockArea)
+    // Using phaser group instead of array for additional fields!
+    this.levelBlocks = this.game.add.physicsGroup(Phaser.Physics.ARCADE)
+    this.levelBlocks.add(this.horizontalBlock)
+    this.levelBlocks.add(this.verticalBlock)
+    this.levelBlocks.add(this.anyBlock)
+
+    this.levelBlocks.children.forEach((sprite) => {
+      // sprite.setBoundary(this.blockArea)
+      /*
+          Ean: For some reason the verticle block does not stay within the bounds.
+          I don't know if this is something I'm doing wrong or a phaser es6 bug?
+      */
+      sprite.input.boundsSprite = this.blockArea
       this.game.add.existing(sprite)
     })
   }
 
+  update () {
+    // Enable the blocks to collide with each other
+    this.game.physics.arcade.collide(this.levelBlocks)
+  }
+
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.verticalMushroom, 32, 32)
+      this.game.debug.spriteInfo(this.verticalBlock, 32, 32)
     }
   }
 }

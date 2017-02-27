@@ -14,6 +14,9 @@ class SplashState extends Phaser.State {
     // load your assets
     //
     this.load.image('mushroom', 'assets/images/mushroom2.png')
+    this.load.image('blockArea', 'assets/images/areaBoard.png')
+    this.load.image('midBlock', 'assets/images/midBlock.png')
+    this.load.image('tallBlock', 'assets/images/tallBlock.png')
   }
 
   create () {

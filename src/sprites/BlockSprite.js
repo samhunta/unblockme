@@ -1,20 +1,15 @@
 import Phaser from 'phaser'
 
-class MushroomSprite extends Phaser.Sprite {
+class BlockSprite extends Phaser.Sprite {
 
   constructor ({ game, x, y, asset }) {
     super(game, x, y, asset)
     this.anchor.setTo(0.5)
-    this.scale.set(0.6)
     this.inputEnabled = true
     this.setupDragEvents()
   }
 
-  update () {
-    if (!this.isDragging) {
-      this.angle += 1
-    }
-  }
+  update () {}
 
   setBoundary (sprite) {
     this.input.boundsSprite = sprite
@@ -23,13 +18,10 @@ class MushroomSprite extends Phaser.Sprite {
   setupDragEvents () {
     this.events.onDragStart.add((...args) => {
       this.isDragging = true
-      this.angle = 0
-      this.scale.set(1)
     })
 
     this.events.onDragStop.add((...args) => {
       this.isDragging = false
-      this.scale.set(0.6)
     })
   }
 
@@ -59,4 +51,4 @@ class MushroomSprite extends Phaser.Sprite {
 
 }
 
-export default MushroomSprite
+export default BlockSprite
