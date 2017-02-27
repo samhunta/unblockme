@@ -5,5 +5,5 @@ const centerGameObjects = (objects) => {
 }
 
 export {
-  centerGameObjects
+  centerGameObjects,
 }

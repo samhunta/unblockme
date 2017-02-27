@@ -30,34 +30,34 @@ class GameState extends Phaser.State {
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
-      asset: 'mushroom' // place holder sprite
+      asset: 'mushroom', // place holder sprite
     })
 
     this.horizontalMushroom = new Mushroom({
       game: this,
       x: this.world.centerX * 0.85,
       y: this.world.centerY,
-      asset: 'mushroom'
+      asset: 'mushroom',
     })
     .allowDrag({
-      horizontal: true
+      horizontal: true,
     })
 
     this.verticalMushroom = new Mushroom({
       game: this,
       x: this.world.centerX,
       y: this.world.centerY,
-      asset: 'mushroom'
+      asset: 'mushroom',
     })
     .allowDrag({
-      vertical: true
+      vertical: true,
     })
 
     this.anyMushroom = new Mushroom({
       game: this,
       x: this.world.centerX * 1.15,
       y: this.world.centerY,
-      asset: 'mushroom'
+      asset: 'mushroom',
     })
     .allowDrag(true)
 
@@ -70,7 +70,7 @@ class GameState extends Phaser.State {
     const levelBlocks = [
       this.verticalMushroom,
       this.horizontalMushroom,
-      this.anyMushroom
+      this.anyMushroom,
     ]
 
     levelBlocks.forEach((sprite) => {
